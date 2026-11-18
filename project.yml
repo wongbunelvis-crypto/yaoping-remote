@@ -1,0 +1,73 @@
+# 遥屏 engineering spec
+name: Yaoping
+options:
+  bundleIdPrefix: com.suchuan
+  deploymentTarget:
+    iOS: "15.0"
+targets:
+  Yaoping:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources
+        excludes:
+          - Info.plist
+    info:
+      path: Sources/Info.plist
+      properties:
+        CFBundleDisplayName: 遥屏
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.suchuan.yaoping
+        PRODUCT_NAME: Yaoping
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SWIFT_VERSION: "5.0"
+        GENERATE_INFOPLIST_FILE: "NO"
+        CODE_SIGNING_ALLOWED: "NO"
+        CODE_SIGNING_REQUIRED: "NO"
+        CODE_SIGN_IDENTITY: ""
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+    dependencies:
+      - target: YaopingBroadcast
+        embed: true
+        codeSign: false
+    scheme:
+      gatherCoverageData: false
+      build:
+        targets:
+          Yaoping: all
+
+  YaopingBroadcast:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: Broadcast
+        excludes:
+          - Info.plist
+    info:
+      path: Broadcast/Info.plist
+      properties:
+        CFBundleDisplayName: 遥屏广播
+        CFBundlePackageType: XPC!
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.broadcast-services-upload
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).SampleHandler
+          RPBroadcastProcessMode: RPBroadcastProcessModeSampleBuffer
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.suchuan.yaoping.broadcast
+        PRODUCT_NAME: YaopingBroadcast
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SWIFT_VERSION: "5.0"
+        GENERATE_INFOPLIST_FILE: "NO"
+        CODE_SIGNING_ALLOWED: "NO"
+        CODE_SIGNING_REQUIRED: "NO"
+        CODE_SIGN_IDENTITY: ""
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
