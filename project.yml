@@ -50,6 +50,7 @@ targets:
       - path: Broadcast
         excludes:
           - Info.plist
+      - path: Sources/MqttLite.swift
     info:
       path: Broadcast/Info.plist
       properties:
